@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sysevent_in_email_action">
+    <sysevent_in_email_action action="INSERT_OR_UPDATE">
+        <action>record_action</action>
+        <active>true</active>
+        <assignment_operator/>
+        <condition_script/>
+        <description/>
+        <event_name>email.read</event_name>
+        <filter_condition/>
+        <from/>
+        <name>Update Attestation Record</name>
+        <order>100</order>
+        <reply_email/>
+        <required_roles/>
+        <script><![CDATA[(function() {
+	
+	var errorMsg = "";
+	var msgArray = [];
+	if (current.getTableName() != "x_thimi_attest_attestation")
+		return;
+
+	var displayValue = getAttestationDisplayValue(current);
+
+	if (!validUser()) {
+		gs.info(getFailurePreamble() + "Sender email does not match attestation owner.");
+		msgArray.push(displayValue);
+		msgArray.push(current.owner.getDisplayValue());
+		msgArray.push(current.owner.email);
+		errorMsg = gs.getMessage("attestationInvalideUser", msgArray);
+		createEmailEvent(errorMsg);
+		return;
+	}
+
+	if (email.body.state != undefined)
+		current.state = email.body.state;
+
+	if (email.subject.toLowerCase().indexOf("attest") >= 0)
+		current.state = "Attested";
+
+	if (current.state != "Attested") {
+		gs.info(getFailurePreamble() + "The subject is malformed. The owner probably did not click the attest button on the email.");
+		msgArray.push(displayValue);
+		errorMsg = gs.getMessage("attestationFailed", msgArray);
+		createEmailEvent(errorMsg);
+		return;
+	}
+
+	current.work_notes = "reply from: " + email.from + "\n\n" + email.body_text;
+	current.update();
+
+	function validUser() {
+		if (current.owner == email.from_sys_id)
+			return true;
+	}
+
+	function createEmailEvent(msg) {
+		gs.eventQueue("x_thimi_attest.email.errorMsg", current, email.from, msg);
+	}
+
+	function getFailurePreamble() {
+		return 'Attestation email from ' + email.from + ' for record "' + displayValue + '" assigned to "' + current.owner.getDisplayValue() +
+			'" failed because: ';
+	}
+
+	function getAttestationDisplayValue(attestation) {
+		if (!gs.nil(attestation.record))
+			return attestation.getDisplayValue();
+
+		gs.warn("Target for x_thimi_attest_attestation:" + attestation.getUniqueValue() + " not found.");
+		return "Unknown";
+	}
+	
+}());]]></script>
+        <stop_processing>false</stop_processing>
+        <sys_class_name>sysevent_in_email_action</sys_class_name>
+        <sys_created_by>rbeeman</sys_created_by>
+        <sys_created_on>2018-05-04 21:16:02</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>c38886b213b51bc01c7851522244b081</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>Update Attestation Record</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Attestation" source="x_thimi_attest">420892240ff1dbc062b6e64be1050e71</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Attestation">420892240ff1dbc062b6e64be1050e71</sys_scope>
+        <sys_update_name>sysevent_in_email_action_c38886b213b51bc01c7851522244b081</sys_update_name>
+        <sys_updated_by>rbeeman</sys_updated_by>
+        <sys_updated_on>2018-05-04 23:36:45</sys_updated_on>
+        <table>x_thimi_attest_attestation</table>
+        <template/>
+        <type>reply</type>
+    </sysevent_in_email_action>
+</record_update>

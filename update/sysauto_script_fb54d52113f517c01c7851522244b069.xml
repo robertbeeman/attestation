@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>Annual Policy Review</name>
+        <run_as display_value="snc-services ADMIN (snc-services)">300169f50a0a3ca1002b97543d2bbd37</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period>1971-01-01 06:00:00</run_period>
+        <run_start>2018-11-01 19:00:00</run_start>
+        <run_time>1970-01-01 08:00:00</run_time>
+        <run_type>periodically</run_type>
+        <script><![CDATA[(function() {
+
+	var kbGlRd = new GlideRecord("kb_knowledge"); 
+	kbGlRd.addEncodedQuery("workflow_state=published^kb_category=7f989b87133302009014de322244b072^ORtopic=Policies");
+	kbGlRd.query();
+	while(kbGlRd.next()) {
+		var att = new GlideRecord('x_thimi_attest_attestation');
+		att.newRecord();
+		att.state = 'Requested';
+		att.source_table = 'kb_knowledge';
+		att.record = kbGlRd.sys_id;
+		att.owner = kbGlRd.author;
+		att.insert();
+	}
+	
+}());	
+
+
+
+
+
+]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>rbeeman</sys_created_by>
+        <sys_created_on>2018-04-30 20:17:16</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>fb54d52113f517c01c7851522244b069</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Annual Policy Review</sys_name>
+        <sys_package display_value="Attestation" source="x_thimi_attest">420892240ff1dbc062b6e64be1050e71</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Attestation">420892240ff1dbc062b6e64be1050e71</sys_scope>
+        <sys_update_name>sysauto_script_fb54d52113f517c01c7851522244b069</sys_update_name>
+        <sys_updated_by>rbeeman</sys_updated_by>
+        <sys_updated_on>2018-04-30 20:17:16</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

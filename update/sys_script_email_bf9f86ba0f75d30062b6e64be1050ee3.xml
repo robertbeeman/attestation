@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_email">
+    <sys_script_email action="INSERT_OR_UPDATE">
+        <name>x_thimi_attest_attestation_script_3</name>
+        <new_lines_to_html>false</new_lines_to_html>
+        <script><![CDATA[(function runMailScript(/* GlideRecord */ current, /* TemplatePrinter */ template,
+/* Optional EmailOutbound */ email, /* Optional GlideRecord */ email_action,
+/* Optional GlideRecord */ event) {
+	
+	var gr = new GlideRecord('sys_user');
+	gr.get(event.parm2);
+	template.print(gr.first_name);
+	
+})(current, template, email, email_action, event);]]></script>
+        <sys_class_name>sys_script_email</sys_class_name>
+        <sys_created_by>isabellee</sys_created_by>
+        <sys_created_on>2018-05-04 21:45:40</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>bf9f86ba0f75d30062b6e64be1050ee3</sys_id>
+        <sys_mod_count>18</sys_mod_count>
+        <sys_name>x_thimi_attest_attestation_script_3</sys_name>
+        <sys_package display_value="Attestation" source="x_thimi_attest">420892240ff1dbc062b6e64be1050e71</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Attestation">420892240ff1dbc062b6e64be1050e71</sys_scope>
+        <sys_update_name>sys_script_email_bf9f86ba0f75d30062b6e64be1050ee3</sys_update_name>
+        <sys_updated_by>rbeeman</sys_updated_by>
+        <sys_updated_on>2018-05-09 21:11:24</sys_updated_on>
+    </sys_script_email>
+</record_update>

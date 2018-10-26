@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element audit="true" label="Attestation" max_length="40" name="x_thimi_attest_attestation" type="collection">
+        <element label="Attested" max_length="40" name="attested" type="glide_date"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" display="true" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Owner" max_length="32" name="owner" reference="sys_user" type="reference"/>
+        <element dependent="source_table" dependent_on_field="source_table" label="Record" max_length="32" name="record" type="document_id" use_dependent_field="true"/>
+        <element attributes="edge_encryption_enabled=true" label="Source table" max_length="40" name="source_table" type="string"/>
+        <element choice="1" label="State" max_length="40" name="state" type="choice">
+            <choice>
+                <element label="Attested" sequence="0" value="Attested"/>
+                <element label="Requested" sequence="1" value="Requested"/>
+                <element label="No response" sequence="2" value="No response"/>
+            </choice>
+        </element>
+        <element label="Work notes" max_length="4000" name="work_notes" type="journal_input"/>
+        <index name="index">
+            <element name="owner"/>
+        </index>
+        <index name="index2">
+            <element name="record"/>
+        </index>
+    </element>
+</database>

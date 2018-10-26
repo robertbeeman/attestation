@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysevent_register">
+    <sysevent_register action="INSERT_OR_UPDATE">
+        <description/>
+        <event_name>x_thimi_attest.policy.owner</event_name>
+        <fired_by>Fired by workflow when annual review occurs for policy owner to review</fired_by>
+        <queue/>
+        <suffix>policy.owner</suffix>
+        <sys_class_name>sysevent_register</sys_class_name>
+        <sys_created_by>isabellee</sys_created_by>
+        <sys_created_on>2018-04-30 21:03:56</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>7b9f99610f39130062b6e64be1050ec5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_thimi_attest.policy.owner</sys_name>
+        <sys_package display_value="Attestation" source="x_thimi_attest">420892240ff1dbc062b6e64be1050e71</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Attestation">420892240ff1dbc062b6e64be1050e71</sys_scope>
+        <sys_update_name>sysevent_register_7b9f99610f39130062b6e64be1050ec5</sys_update_name>
+        <sys_updated_by>isabellee</sys_updated_by>
+        <sys_updated_on>2018-04-30 21:03:56</sys_updated_on>
+        <table>x_thimi_attest_attestation</table>
+    </sysevent_register>
+</record_update>
